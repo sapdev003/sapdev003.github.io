@@ -1,9 +1,58 @@
-<html>
+<!DOCTYPE html>
+<html lang="ja">
+
 <head>
-<meta charset="utf-8">
-<title>タイトル</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebPushテストサイト</title>
+    <link rel="manifest" href="/manifest.json" />
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
 </head>
+
 <body>
-本文
+    <h1>WebPush テスト</h1>
+    <dl>
+        <dt><strong>通知許可状態</strong></dt>
+        <dd id="status">-</dd>
+        <dt><strong>FCMトークン</strong></dt>
+        <dd id="fcm_token">-</dd>
+    </dl>
+    <button id="showPushNotificationDialogBtn">プッシュ通知許可ダイアログを表示</button>
+
+    <script>
+        // Firebaseの認証情報
+  const firebaseConfig = {
+    apiKey: "AIzaSyAlrVvK-tPJAe9IgIrbVHw2ek4po8U9QwE",
+    authDomain: "webpush-86945.firebaseapp.com",
+    projectId: "webpush-86945",
+    storageBucket: "webpush-86945.appspot.com",
+    messagingSenderId: "946738825220",
+    appId: "1:946738825220:web:d0c00db9d4365a1226cd51"
+  };
+        firebase.initializeApp(firebaseConfig);
+        const messaging = firebase.messaging();
+
+        // Firebase Cloud Messagingのトークンを取得
+        function getFCMToken() {
+            messaging.getToken({
+                vapidKey: '_____DUMMY_____'
+            }).then((currentToken) => {
+                if (currentToken) {
+                    document.getElementById('status').innerText = "許可";
+                    document.getElementById('fcm_token').innerText = currentToken;
+                } else {
+                    document.getElementById('status').innerText = "未登録";
+                }
+            });
+        };
+
+        // ボタンタップ時のイベントを設定
+        var button = document.getElementById('showPushNotificationDialogBtn');
+        button.addEventListener('click', function () {
+            getFCMToken();
+        }, false);
+    </script>
 </body>
+
 </html>
