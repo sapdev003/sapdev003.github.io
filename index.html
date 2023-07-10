@@ -36,8 +36,7 @@
         // Firebase Cloud Messagingのトークンを取得
         function getFCMToken() {
             messaging.getToken({
-                vapidKey: 'BKMiPqXEyPbrcd-OTq5K-jH2M7kSgMe64dyIZy4em4S498yW8AHl9me5alKjykuwOwCgKxhZf2AXVJv0NYy4iJM'
-            }).then((currentToken) => {
+                vapidKey: 'BKMiPqXEyPbrcd-OTq5K-jH2M7kSgMe64dyIZy4em4S498yW8AHl9me5alKjykuwOwCgKxhZf2AXVJv0NYy4iJM'}).then((currentToken) => {
                 if (currentToken) {
                     document.getElementById('status').innerText = "許可";
                     document.getElementById('fcm_token').innerText = currentToken;
